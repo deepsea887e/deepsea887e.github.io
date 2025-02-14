@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cisco Switch & Router Checklist</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 30px;
+            background-color: #f5f5f5;
+        }
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-row {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 20px;
+        }
+        .form-row label {
+            flex: 1;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        .section-header td {
+            background-color: #ecf0f1;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+        button {
+            margin-top: 25px;
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px;">
+        Cisco Switch & Router Checklist
+    </h1>
+
+    <!-- Form Section -->
+    <div class="form-section">
+        <div class="form-row">
+            <label>Inspector Name: <input type="text" id="inspectorName"></label>
+            <label>Inspection Date: <input type="date" id="inspectionDate"></label>
+            <label>Location/Branch: <input type="text" id="location"></label>
+        </div>
+        <div class="form-row">
+            <label>Device Type:
+                <select id="deviceType">
+                    <option value="Switch">Switch</option>
+                    <option value="Router">Router</option>
+                </select>
+            </label>
+            <label>Serial Number: <input type="text" id="serialNumber"></label>
+            <label>Device IP Address: <input type="text" id="ipAddress"></label>
+        </div>
+    </div>
+
+    <!-- Checklist Table -->
+    <table id="checklistTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Checklist Item</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Physical Inspection Section -->
+            <tr class="section-header">
+                <td colspan="3">Physical Inspection</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>External Condition of the Device (No Physical Damage)</td>
+                <td>
+                    <select>
+                        <option value="Normal">Normal</option>
+                        <option value="Abnormal">Abnormal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>LED Status Indicator Working Properly</td>
+                <td>
+                    <select>
+                        <option value="Normal">Normal</option>
+                        <option value="Abnormal">Abnormal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Cooling Fan Operating Normally</td>
+                <td>
+                    <select>
+                        <option value="Normal">Normal</option>
+                        <option value="Abnormal">Abnormal</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Power Supply Status</td>
+                <td>
+                    <select>
+                        <option value="Normal">Normal</option>
+                        <option value="Abnormal">Abnormal</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Configuration Checks Section -->
+            <tr class="section-header">
+                <td colspan="3">Configuration Checks</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>IOS Version Checked</td>
+                <td>
+                    <select>
+                        <option value="Completed">Completed</option>
+                        <option value="Not Completed">Not Completed</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>VLAN Configuration Checked</td>
+                <td>
+                    <select>
+                        <option value="Completed">Completed</option>
+                        <option value="Not Completed">Not Completed</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Routing Protocol Configuration Checked</td>
+                <td>
+                    <select>
+                        <option value="Completed">Completed</option>
+                        <option value="Not Completed">Not Completed</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>ACL (Access Control List) Checked</td>
+                <td>
+                    <select>
+                        <option value="Completed">Completed</option>
+                        <option value="Not Completed">Not Completed</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Security Checks Section -->
+            <tr class="section-header">
+                <td colspan="3">Security Checks</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>SSH Configuration Enabled</td>
+                <td>
+                    <select>
+                        <option value="Enabled">Enabled</option>
+                        <option value="Disabled">Disabled</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>SNMP Configuration Checked</td>
+                <td>
+                    <select>
+                        <option value="Secure">Secure</option>
+                        <option value="Not Secure">Not Secure</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- Connectivity Tests Section -->
+            <tr class="section-header">
+                <td colspan="3">Connectivity Tests</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Ping Test to Gateway</td>
+                <td>
+                    <select>
+                        <option value="Success">Success</option>
+                        <option value="Failed">Failed</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Traceroute Test to Remote Host</td>
+                <td>
+                    <select>
+                        <option value="Success">Success</option>
+                        <option value="Failed">Failed</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="exportToPDF()">Export to PDF</button>
+
+    <script>
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // ข้อมูลแบบฟอร์ม
+            const formData = {
+                "Inspector Name": document.getElementById("inspectorName").value || "N/A",
+                "Inspection Date": document.getElementById("inspectionDate").value || "N/A",
+                "Location/Branch": document.getElementById("location").value || "N/A",
+                "Device Type": document.getElementById("deviceType").value || "N/A",
+                "Serial Number": document.getElementById("serialNumber").value || "N/A",
+                "Device IP Address": document.getElementById("ipAddress").value || "N/A"
+            };
+
+            // หัวข้อรายงาน
+            doc.setFontSize(16);
+            doc.text("Cisco Device Checklist Report", 15, 15);
+
+            // ตารางข้อมูลพื้นฐาน
+            doc.autoTable({
+                startY: 25,
+                head: [['Field', 'Value']],
+                body: Object.entries(formData),
+                theme: 'grid',
+                styles: { fontSize: 9, cellPadding: 2 },
+                headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+                alternateRowStyles: { fillColor: [245, 245, 245] }
+            });
+
+            // เตรียมข้อมูลตาราง Checklist
+            const tableData = [];
+            document.querySelectorAll("#checklistTable tbody tr").forEach(row => {
+                if (row.classList.contains('section-header')) {
+                    tableData.push({
+                        content: row.querySelector('td').innerText,
+                        colSpan: 3,
+                        styles: { 
+                            fillColor: [236, 240, 241],
+                            textColor: [44, 62, 80],
+                            fontStyle: 'bold',
+                            halign: 'center'
+                        }
+                    });
+                } else {
+                    const cells = row.querySelectorAll('td');
+                    tableData.push([
+                        cells[0].innerText,
+                        cells[1].innerText,
+                        cells[2].querySelector('select').value
+                    ]);
+                }
+            });
+
+            // สร้างตาราง Checklist ใน PDF
+            doc.autoTable({
+                startY: doc.lastAutoTable.finalY + 10,
+                head: [['No.', 'Checklist Item', 'Status']],
+                body: tableData,
+                theme: 'grid',
+                styles: { fontSize: 8, cellPadding: 2 },
+                headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+                alternateRowStyles: { fillColor: [245, 245, 245] },
+                columnStyles: {
+                    0: { cellWidth: 10 },
+                    1: { cellWidth: 130 },
+                    2: { cellWidth: 25 }
+                }
+            });
+
+            doc.save("Cisco_Checklist_Report.pdf");
+        }
+    </script>
+</body>
+</html>
