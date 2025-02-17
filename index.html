@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cisco Switch & Router Checklist</title>
+    <title>Cisco Network Device Inspection Checklist</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
     <style>
@@ -27,12 +27,16 @@
         .form-row label {
             flex: 1;
         }
-        input, select {
+        input, select, textarea {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 60px;
         }
         table {
             width: 100%;
@@ -69,14 +73,17 @@
         button:hover {
             background-color: #2980b9;
         }
+        .notes-section {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1 style="color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px;">
-        Cisco Switch & Router Checklist
+        Cisco Network Device Inspection Checklist
     </h1>
 
-    <!-- Form Section -->
+    <!-- Enhanced Form Section -->
     <div class="form-section">
         <div class="form-row">
             <label>Inspector Name: <input type="text" id="inspectorName"></label>
@@ -88,239 +95,389 @@
                 <select id="deviceType">
                     <option value="Switch">Switch</option>
                     <option value="Router">Router</option>
+                    <option value="Layer 3 Switch">Layer 3 Switch</option>
                 </select>
             </label>
+            <label>Model Number: <input type="text" id="modelNumber"></label>
             <label>Serial Number: <input type="text" id="serialNumber"></label>
+        </div>
+        <div class="form-row">
             <label>Device IP Address: <input type="text" id="ipAddress"></label>
+            <label>Firmware Version: <input type="text" id="firmwareVersion"></label>
+            <label>Last Maintenance Date: <input type="date" id="lastMaintenance"></label>
         </div>
     </div>
 
-    <!-- Checklist Table -->
+    <!-- Enhanced Checklist Table -->
     <table id="checklistTable">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Checklist Item</th>
                 <th>Status</th>
+                <th>Notes</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Physical Inspection Section -->
+            <!-- Hardware Inspection -->
             <tr class="section-header">
-                <td colspan="3">Physical Inspection</td>
+                <td colspan="4">1. Hardware Inspection</td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>External Condition of the Device (No Physical Damage)</td>
+                <td>1.1</td>
+                <td>Physical condition (No damage, dust, loose components)</td>
                 <td>
                     <select>
-                        <option value="Normal">Normal</option>
-                        <option value="Abnormal">Abnormal</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>LED Status Indicator Working Properly</td>
+                <td>1.2</td>
+                <td>All LEDs functioning properly</td>
                 <td>
                     <select>
-                        <option value="Normal">Normal</option>
-                        <option value="Abnormal">Abnormal</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>3</td>
-                <td>Cooling Fan Operating Normally</td>
+                <td>1.3</td>
+                <td>Cooling system operational (fans, vents)</td>
                 <td>
                     <select>
-                        <option value="Normal">Normal</option>
-                        <option value="Abnormal">Abnormal</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>4</td>
-                <td>Power Supply Status</td>
+                <td>1.4</td>
+                <td>Power supply status (Primary and redundant if applicable)</td>
                 <td>
                     <select>
-                        <option value="Normal">Normal</option>
-                        <option value="Abnormal">Abnormal</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
 
-            <!-- Configuration Checks Section -->
+            <!-- System Health -->
             <tr class="section-header">
-                <td colspan="3">Configuration Checks</td>
+                <td colspan="4">2. System Health</td>
             </tr>
             <tr>
-                <td>5</td>
-                <td>IOS Version Checked</td>
+                <td>2.1</td>
+                <td>CPU utilization (< 75% under normal load)</td>
                 <td>
                     <select>
-                        <option value="Completed">Completed</option>
-                        <option value="Not Completed">Not Completed</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>6</td>
-                <td>VLAN Configuration Checked</td>
+                <td>2.2</td>
+                <td>Memory utilization (< 80% usage)</td>
                 <td>
                     <select>
-                        <option value="Completed">Completed</option>
-                        <option value="Not Completed">Not Completed</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>7</td>
-                <td>Routing Protocol Configuration Checked</td>
+                <td>2.3</td>
+                <td>Interface errors/drops (check with 'show interface')</td>
                 <td>
                     <select>
-                        <option value="Completed">Completed</option>
-                        <option value="Not Completed">Not Completed</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>ACL (Access Control List) Checked</td>
-                <td>
-                    <select>
-                        <option value="Completed">Completed</option>
-                        <option value="Not Completed">Not Completed</option>
-                    </select>
-                </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
 
-            <!-- Security Checks Section -->
+            <!-- Security Configuration -->
             <tr class="section-header">
-                <td colspan="3">Security Checks</td>
+                <td colspan="4">3. Security Configuration</td>
             </tr>
             <tr>
-                <td>9</td>
-                <td>SSH Configuration Enabled</td>
+                <td>3.1</td>
+                <td>Access control lists (ACLs) properly configured</td>
                 <td>
                     <select>
-                        <option value="Enabled">Enabled</option>
-                        <option value="Disabled">Disabled</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>10</td>
-                <td>SNMP Configuration Checked</td>
+                <td>3.2</td>
+                <td>SSH enabled (Telnet disabled)</td>
                 <td>
                     <select>
-                        <option value="Secure">Secure</option>
-                        <option value="Not Secure">Not Secure</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+            <tr>
+                <td>3.3</td>
+                <td>Strong passwords configured</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+            <tr>
+                <td>3.4</td>
+                <td>Port security enabled on access ports</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
 
-            <!-- Connectivity Tests Section -->
+            <!-- Network Configuration -->
             <tr class="section-header">
-                <td colspan="3">Connectivity Tests</td>
+                <td colspan="4">4. Network Configuration</td>
             </tr>
             <tr>
-                <td>11</td>
-                <td>Ping Test to Gateway</td>
+                <td>4.1</td>
+                <td>VLAN configuration verified</td>
                 <td>
                     <select>
-                        <option value="Success">Success</option>
-                        <option value="Failed">Failed</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
             <tr>
-                <td>12</td>
-                <td>Traceroute Test to Remote Host</td>
+                <td>4.2</td>
+                <td>Spanning Tree Protocol configuration</td>
                 <td>
                     <select>
-                        <option value="Success">Success</option>
-                        <option value="Failed">Failed</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
                     </select>
                 </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+            <tr>
+                <td>4.3</td>
+                <td>Routing protocols configuration (if applicable)</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+
+            <!-- Monitoring & Management -->
+            <tr class="section-header">
+                <td colspan="4">5. Monitoring & Management</td>
+            </tr>
+            <tr>
+                <td>5.1</td>
+                <td>SNMP configuration secure and functional</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+            <tr>
+                <td>5.2</td>
+                <td>Syslog configured and operational</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
+            </tr>
+            <tr>
+                <td>5.3</td>
+                <td>NTP configuration verified</td>
+                <td>
+                    <select>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </td>
+                <td><input type="text" placeholder="Add notes"></td>
             </tr>
         </tbody>
     </table>
 
+    <!-- Additional Notes Section -->
+    <div class="form-section notes-section">
+        <h3>Additional Notes & Recommendations</h3>
+        <textarea id="additionalNotes" placeholder="Enter any additional observations, recommendations, or follow-up actions required..."></textarea>
+    </div>
+
     <button onclick="exportToPDF()">Export to PDF</button>
 
     <script>
-        function exportToPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+<script>
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Set document metadata
+    doc.setProperties({
+        title: 'Cisco Network Device Inspection Report',
+        subject: 'Network Device Inspection',
+        author: 'Your Company Name',
+        keywords: 'cisco, network, inspection, report',
+        creator: 'Your Company Name'
+    });
 
-            // ข้อมูลแบบฟอร์ม
-            const formData = {
-                "Inspector Name": document.getElementById("inspectorName").value || "N/A",
-                "Inspection Date": document.getElementById("inspectionDate").value || "N/A",
-                "Location/Branch": document.getElementById("location").value || "N/A",
-                "Device Type": document.getElementById("deviceType").value || "N/A",
-                "Serial Number": document.getElementById("serialNumber").value || "N/A",
-                "Device IP Address": document.getElementById("ipAddress").value || "N/A"
-            };
+    // Add header
+    const addHeader = () => {
+        doc.setFontSize(10);
+        doc.setTextColor(40);
+        doc.setFont(undefined, 'bold');
+        doc.text("Data  Data Dynamic Solution Asia Ltd", 15, 10);
+        doc.setFont(undefined, 'normal');
+        doc.text("Network Device Inspection Report", 15, 15);
+        doc.text(new Date().toLocaleDateString(), 180, 10, { align: 'right' });
+    };
 
-            // หัวข้อรายงาน
-            doc.setFontSize(16);
-            doc.text("Cisco Device Checklist Report", 15, 15);
+    // Add footer
+    const addFooter = (pageNumber) => {
+        const footerY = doc.internal.pageSize.height - 10;
+        doc.setFontSize(9);
+        doc.text(`Page ${pageNumber}`, 15, footerY);
+        doc.text("Confidential - Internal Use Only", 180, footerY, { align: 'right' });
+    };
 
-            // ตารางข้อมูลพื้นฐาน
-            doc.autoTable({
-                startY: 25,
-                head: [['Field', 'Value']],
-                body: Object.entries(formData),
-                theme: 'grid',
-                styles: { fontSize: 9, cellPadding: 2 },
-                headStyles: { fillColor: [41, 128, 185], textColor: 255 },
-                alternateRowStyles: { fillColor: [245, 245, 245] }
-            });
+    // Form Data
+    const formData = {
+        "Inspector Name": document.getElementById("inspectorName").value || "N/A",
+        "Inspection Date": document.getElementById("inspectionDate").value || "N/A",
+        "Location/Branch": document.getElementById("location").value || "N/A",
+        "Device Type": document.getElementById("deviceType").value || "N/A",
+        "Model Number": document.getElementById("modelNumber").value || "N/A",
+        "Serial Number": document.getElementById("serialNumber").value || "N/A",
+        "Device IP": document.getElementById("ipAddress").value || "N/A",
+        "Firmware Version": document.getElementById("firmwareVersion").value || "N/A",
+        "Last Maintenance": document.getElementById("lastMaintenance").value || "N/A"
+    };
 
-            // เตรียมข้อมูลตาราง Checklist
-            const tableData = [];
-            document.querySelectorAll("#checklistTable tbody tr").forEach(row => {
-                if (row.classList.contains('section-header')) {
-                    tableData.push({
-                        content: row.querySelector('td').innerText,
-                        colSpan: 3,
-                        styles: { 
-                            fillColor: [236, 240, 241],
-                            textColor: [44, 62, 80],
-                            fontStyle: 'bold',
-                            halign: 'center'
-                        }
-                    });
-                } else {
-                    const cells = row.querySelectorAll('td');
-                    tableData.push([
-                        cells[0].innerText,
-                        cells[1].innerText,
-                        cells[2].querySelector('select').value
-                    ]);
-                }
-            });
+    // Main title
+    doc.setFontSize(16);
+    doc.text("Cisco Network Device Inspection Report", 15, 25);
+    
+    // Form data table
+    doc.autoTable({
+        startY: 35,
+        head: [['Field', 'Value']],
+        body: Object.entries(formData),
+        theme: 'grid',
+        styles: { fontSize: 9, cellPadding: 2 },
+        headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+        alternateRowStyles: { fillColor: [245, 245, 245] }
+    });
 
-            // สร้างตาราง Checklist ใน PDF
-            doc.autoTable({
-                startY: doc.lastAutoTable.finalY + 10,
-                head: [['No.', 'Checklist Item', 'Status']],
-                body: tableData,
-                theme: 'grid',
-                styles: { fontSize: 8, cellPadding: 2 },
-                headStyles: { fillColor: [41, 128, 185], textColor: 255 },
-                alternateRowStyles: { fillColor: [245, 245, 245] },
-                columnStyles: {
-                    0: { cellWidth: 10 },
-                    1: { cellWidth: 130 },
-                    2: { cellWidth: 25 }
-                }
-            });
-
-            doc.save("Cisco_Checklist_Report.pdf");
+    // Process checklist data
+    const checklistData = [];
+    document.querySelectorAll("#checklistTable tbody tr").forEach(row => {
+        if (row.classList.contains('section-header')) {
+            checklistData.push([{
+                content: row.cells[0].textContent,
+                colSpan: 4,
+                styles: { fillColor: [236, 240, 241], fontStyle: 'bold' }
+            }]);
+        } else {
+            const cells = Array.from(row.cells);
+            checklistData.push([
+                cells[0].textContent,
+                cells[1].textContent,
+                cells[2].querySelector('select').value,
+                cells[3].querySelector('input').value || 'N/A'
+            ]);
         }
-    </script>
-</body>
-</html>
+    });
+
+    // Checklist table
+    doc.autoTable({
+        startY: doc.lastAutoTable.finalY + 10,
+        head: [['No.', 'Checklist Item', 'Status', 'Notes']],
+        body: checklistData,
+        theme: 'grid',
+        styles: { fontSize: 9, cellPadding: 2 },
+        headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+        alternateRowStyles: { fillColor: [245, 245, 245] },
+        didParseCell: (data) => {
+            if (data.row.section === 'body' && data.cell.raw.content) {
+                data.cell.styles = data.cell.raw.styles;
+                data.cell.colSpan = data.cell.raw.colSpan;
+            }
+        }
+    });
+
+    // Additional Notes
+    const notes = document.getElementById("additionalNotes").value;
+    doc.autoTable({
+        startY: doc.lastAutoTable.finalY + 15,
+        head: [['Additional Notes & Recommendations']],
+        body: [[notes || 'N/A']],
+        theme: 'grid',
+        styles: { fontSize: 9, cellPadding: 3 },
+        headStyles: { fillColor: [41, 128, 185], textColor: 255 }
+    });
+
+    // Add headers and footers
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        addHeader();
+        addFooter(i);
+    }
+
+    doc.save(`Inspection_Report_${formData['Serial Number']}.pdf`);
+}
+</script>
